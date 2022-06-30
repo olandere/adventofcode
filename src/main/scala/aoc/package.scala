@@ -1,7 +1,8 @@
-import scala.annotation.tailrec
-import scala.io.Source
 import cats.effect.IO
 import cats.effect.kernel.Resource
+
+import scala.annotation.tailrec
+import scala.io.Source
 
 package object aoc {
 
@@ -57,7 +58,7 @@ package object aoc {
     def reset = cnt = 0
   }
 
-  def or[T](f: T => Boolean, g: T => Boolean)(t: T) = f(t) || g(t)
+  def or[T](f: T => Boolean, g: T => Boolean)(t: T): Boolean = f(t) || g(t)
 
   /**
    * Returns the neighboring cells in a 3x3 grid around a central element.  Handled edges and corners as well.
@@ -85,7 +86,7 @@ package object aoc {
    */
   def filterDiagonals(x: Int, y: Int)(p: (Int, Int)): Boolean = p._1 == x || p._2 == y
 
-  def manhattenDistance(x0: Int, y0: Int)(x: Int, y: Int) = {
+  def manhattenDistance(x0: Int, y0: Int)(x: Int, y: Int): Int = {
     math.abs(x0 - x) + math.abs(y0 - y)
   }
 
@@ -110,4 +111,16 @@ package object aoc {
       }
     }
   }
+
+  // Combinators
+
+  def id[A](a: A): A = a
+
+  def flip[A, B](a: (A, A) => B)(b: A, c: A): B = a(c, b)
+
+  def k[A](a: A)(b: A): A = a
+
+  def s[A, B](a: A => A => B)(b: A => A)(c: A):B = a(c)(b(c))
+
+  def psi[A, B, C](a: (B, B) => C)(b: A => B)(c: A)(d: A): C = a(b(c), b(d))
 }

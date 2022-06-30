@@ -2,7 +2,7 @@ lazy val root = (project in file("."))
   .settings(
     name := "adventofcode",
     version := "0.1",
-    scalaVersion := "3.1.0",
+    scalaVersion := "3.1.1",
   //  resourceDirectory in Compile := baseDirectory.value / "resources",
     libraryDependencies ++= Seq(
       "org.typelevel" %% "cats-effect" % "3.3.3",
